@@ -56,24 +56,24 @@ void prompt()
 
 
 
-int execute_command(char *command_argv) {
+int execute_command(char *cmd_argv) {
 
-    char *args[100], *args_exec;
-    int contador = 0;
+    char *args[100], *exec_args;
+    int count = 0;
 
-    args_exec = strtok(command_argv," ");
-    if(args_exec == NULL){
-        printf("\n!!No dejes comandos en blanco!!\n");
+    exec_args = strtok(cmd_argv," ");
+    if(exec_args == NULL){
+        printf("\nunexpected empty command\n");
     }else{
-        while(args_exec != NULL){
-            args[contador] = args_exec;
-            contador++;
-            args_exec = strtok(NULL, " ");
+        while(exec_args != NULL){
+            args[count] = exec_args;
+            count++;
+            exec_args = strtok(NULL, " ");
         }
-        args[contador] = NULL;
+        args[count] = NULL;
 
         if (execvp(args[0], args) == -1) {
-            perror("Execution error");
+            perror("execution error");
             return -1;
         }
     }
@@ -83,27 +83,27 @@ int execute_command(char *command_argv) {
 
 
 
-void pipe_get_cmd(char *command_argv)
+void pipe_get_cmd(char *cmd_argv)
 {
-    char *command;
-    int contador = 0, pid = 0;
+    char *cmd;
+    int count = 0, pid = 0;
 
 
-    command = strtok(command_argv,"\n");
-    command = strtok(command_argv,";");
+    cmd = strtok(cmd_argv,"\n");
+    cmd = strtok(cmd_argv,";");
 
-    while(command != NULL){
+    while(cmd != NULL){
         if((pid = fork()) == 0){
-            execute_command(command);
+            execute_command(cmd);
             exit(0);
 
         }else{
-            contador++;
-            command = strtok(NULL, ";");
+            count++;
+            cmd = strtok(NULL, ";");
         }
     }
 
-    while(contador-- > 0){
+    while(count-- > 0){
         wait(NULL);
     }
 }

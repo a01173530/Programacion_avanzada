@@ -55,13 +55,13 @@ int main(int argc, char *argv[]){
     struct stat statbuf;
 
     if(argc > 2){
-        printf("ERROR: %s [nombre]\n", argv[0]);
+        printf("usage: %s [batchFile]\n", argv[0]);
         return -1;
 
     }else if(argc == 2){
 
         if((src = open(argv[1], O_RDONLY)) < 0){
-            printf("%s: Archivo no encontrado\n",argv[1]);
+            printf("%s: No such file or directory\n",argv[1]);
             return -2;
         }
 
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]){
         if(S_ISREG(statbuf.st_mode)){
             execute_file(argv[1]);
         }else{
-            printf("No se puede abrir el archivo: %s \n",argv[1]);
+            printf("%s: File unavailable to open \n",argv[1]);
         }
 
     }else{
