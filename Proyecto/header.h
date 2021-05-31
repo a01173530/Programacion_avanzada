@@ -1,3 +1,5 @@
+#ifndef HEADER_H
+#define HEADER_H
 /*----------------------------------------------------------------
 *
 * Programación avanzada: Proyecto final
@@ -42,6 +44,7 @@ struct command_t {
 
 struct command_t command_dir;
 
+int execute_command(char *cmd_argv);
 
 void prompt()
 {
@@ -51,6 +54,33 @@ void prompt()
         printf("mini-shell> ");
     }
 
+}
+
+
+
+void get_pipe_cmd(char *cmd_argv)
+{
+    char *cmd;
+    int count = 0, pid = 0;
+
+
+    cmd = strtok(cmd_argv,"\n");
+    cmd = strtok(cmd_argv,";");
+
+    while(cmd != NULL){
+        if((pid = fork()) == 0){
+            execute_command(cmd);
+            exit(0);
+
+        }else{
+            count++;
+            cmd = strtok(NULL, ";");
+        }
+    }
+
+    while(count-- > 0){
+        wait(NULL);
+    }
 }
 
 
@@ -80,29 +110,4 @@ int execute_command(char *cmd_argv) {
     return 0;
 }
 
-
-
-void get_pipe_cmd(char *cmd_argv)
-{
-    char *cmd;
-    int count = 0, pid = 0;
-
-
-    cmd = strtok(cmd_argv,"\n");
-    cmd = strtok(cmd_argv,";");
-
-    while(cmd != NULL){
-        if((pid = fork()) == 0){
-            execute_command(cmd);
-            exit(0);
-
-        }else{
-            count++;
-            cmd = strtok(NULL, ";");
-        }
-    }
-
-    while(count-- > 0){
-        wait(NULL);
-    }
-}
+#endif
