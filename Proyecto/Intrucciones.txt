@@ -1,0 +1,39 @@
+1.- Para compilar este proyecto es necesario: 
+
+gcc shell.c -o shell
+
+2.- Para ejecutarlo
+
+Para modo shell
+./shell
+
+o 
+
+para ejecutar lo que hay adentro de un archivo
+
+./shell [batchFile]
+
+Nota: para salir de modo shell se utiliza:
+quit 
+
+-------------------------------------- Pruebas 1 shells
+ls
+/bin/ls
+ls -l
+ls -l ; cat file
+ls -l ; cat file1
+ls -l ; cat file ; grep foo file2
+ls -l ; cat file1 ; grep foo file2
+
+--------------------------------------- Pruebas 2 shells
+
+; cat file ; grep foo file2
+; cat file1 ; grep foo file2
+cat file ; ; grep foo file2
+cat file1 ; ; grep foo file2
+cat file ; ls -l ;
+cat file1 ; ls -l ;
+cat file ; ; ; ; ls -l
+cat file1 ; ; ; ; ls -l
+; ; ls -l
+;
