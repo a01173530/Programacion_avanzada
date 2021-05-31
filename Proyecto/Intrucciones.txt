@@ -37,3 +37,12 @@ cat file ; ; ; ; ls -l
 cat file1 ; ; ; ; ls -l
 ; ; ls -l
 ;
+
+--------------------------------------- Pruebas de archivos
+./shell file1
+./shell file2
+./shell file3
+./shell input1-quit.bat
+./shell input1-noquit.bat
+./shell input2-quit.bat
+./shell input2-noquit.bat

@@ -40,7 +40,6 @@ struct command_t {
         char *argv[100];
 };
 
-
 struct command_t command_dir;
 
 
@@ -83,7 +82,7 @@ int execute_command(char *cmd_argv) {
 
 
 
-void pipe_get_cmd(char *cmd_argv)
+void get_pipe_cmd(char *cmd_argv)
 {
     char *cmd;
     int count = 0, pid = 0;
